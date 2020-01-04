@@ -1,0 +1,13 @@
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/json-2.2.0/ext/json
+/opt/chef/embedded/bin/ruby -I /opt/chef/embedded/lib/ruby/2.6.0 -r ./siteconf20191015-13214-3tdlt.rb extconf.rb
+creating Makefile
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/json-2.2.0/ext/json
+make "DESTDIR=" clean
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/json-2.2.0/ext/json
+make "DESTDIR="
+make: Nothing to be done for 'all'.
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/json-2.2.0/ext/json
+make "DESTDIR=" install

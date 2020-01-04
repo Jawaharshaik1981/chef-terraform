@@ -1,0 +1,6 @@
+require_relative "dsl/recipe"
+require_relative "dsl/platform_introspection"
+require_relative "dsl/data_query"
+require_relative "dsl/include_recipe"
+require_relative "dsl/include_attribute"
+require_relative "dsl/registry_helper"

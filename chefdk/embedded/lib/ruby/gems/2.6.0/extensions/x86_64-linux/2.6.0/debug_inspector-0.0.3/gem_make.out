@@ -1,0 +1,15 @@
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/debug_inspector-0.0.3/ext/debug_inspector
+/opt/chefdk/embedded/bin/ruby -I /opt/chefdk/embedded/lib/ruby/2.6.0 -r ./siteconf20191016-11988-wv4mch.rb extconf.rb
+creating Makefile
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.so
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 debug_inspector.so ./.gem.20191016-11988-1fyscvs

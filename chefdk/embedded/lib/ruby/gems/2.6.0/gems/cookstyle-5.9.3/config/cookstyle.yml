@@ -1,0 +1,1417 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - files/**/*
+    - vendor/**/*
+    - Guardfile
+  ChefAttributes:
+    Patterns:
+    - attributes/.*\.rb
+  ChefDefinitions:
+    Patterns:
+    - definitions/.*\.rb
+  ChefLibraries:
+    Patterns:
+    - libraries/.*\.rb
+  ChefMetadata:
+    Patterns:
+    - metadata\.rb
+  ChefProviders:
+    Patterns:
+    - providers/.*\.rb
+  ChefRecipes:
+    Patterns:
+    - recipes/.*\.rb
+  ChefResources:
+    Patterns:
+    - resources/.*\.rb
+
+###############################
+# ChefStyle: Making cookbooks look better
+###############################
+
+ChefStyle/AttributeKeys:
+  Description: Check which style of keys are used to access node attributes.
+  Enabled: true
+  EnforcedStyle: strings
+  VersionAdded: '5.0.0'
+  SupportedStyles:
+  - strings
+  - symbols
+  Exclude:
+    - '**/metadata.rb'
+
+ChefStyle/CopyrightCommentFormat:
+  Description: Properly format copyright dates in comment blocks and ensure dates are up to date
+  Enabled: false
+  VersionAdded: '5.0.0'
+
+ChefStyle/CommentSentenceSpacing:
+  Description: Use a single space after sentences in comments
+  Enabled: false
+  VersionAdded: '5.1.0'
+
+ChefStyle/CommentFormat:
+  Description: Use Chef's unique format for comment headers
+  Enabled: true
+  VersionAdded: '5.0.0'
+
+ChefStyle/FileMode:
+  Description: Use strings to represent file modes in Chef resources
+  Enabled: true
+  VersionAdded: '5.0.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefStyle/UsePlatformHelpers:
+  Description: Use platform? and platform_family? helpers for checking node platform in resources and recipes
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+    - '**/libraries/*'
+
+ChefStyle/SimplifyPlatformMajorVersionCheck:
+  Description: Use node['platform_version'].to_i instead of node['platform_version'].split('.').first or node['platform_version'].split('.')[0]
+  Enabled: true
+  VersionAdded: '5.8.0'
+  Exclude:
+    - '**/metadata.rb'
+
+###############################
+# ChefCorrectness: Avoiding potential problems
+###############################
+
+ChefCorrectness/ServiceResource:
+  Description: Use a service resource to start and stop services instead of execute resources
+  Enabled: true
+  VersionAdded: '5.0.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/NodeNormal:
+  Description: Do not use the node.normal method
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/NodeNormalUnless:
+  Description: Do not use the node.normal_unless method
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/TmpPath:
+  Description: Use file_cache_path rather than hard-coding tmp paths
+  Enabled: true
+  VersionAdded: '5.0.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/InsecureCookbookURL:
+  Description: Insecure http Github or Gitlab URLs for metadata source_url/issues_url fields
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefCorrectness/NamePropertyIsRequired:
+  Description: Resource properties marked as name properties should not also be required properties
+  Enabled: true
+  VersionAdded: '5.1.0'
+
+ChefCorrectness/InvalidLicenseString:
+  Description: Cookbook metadata.rb does not use a SPDX compliant license string or "all rights reserved"
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefCorrectness/InvalidPlatformMetadata:
+  Description: metadata.rb "supports" platform is invalid
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefCorrectness/CookbookUsesNodeSave:
+  Description: Don't use node.save to save partial node data to the Chef Infra Server mid-run unless it's absolutely necessary. Node.save can result in failed Chef Infra runs appearing in search and increases load on the Chef Infra Server.
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/DefaultMetadataMaintainer:
+  Description: Metadata contains default maintainer information from the cookbook generator. Add actual cookbook maintainer information to the metadata.rb.
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefCorrectness/PropertyWithNameAttribute:
+  Description: Resource property sets name_attribute not name_property
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/resources/*.rb'
+    - '**/libraries/*.rb'
+
+ChefCorrectness/PropertyWithRequiredAndDefault:
+  Description: Resource property should not be both required and have a default value
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/resources/*.rb'
+    - '**/libraries/*.rb'
+
+ChefCorrectness/CookbooksDependsOnSelf:
+  Description: A cookbook cannot depend on itself
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefCorrectness/MetadataMissingName:
+  Description: MetadataMissingName
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefCorrectness/BlockGuardWithOnlyString:
+  Description: A resource guard (not_if/only_if) that is a string should not be wrapped in {}. Wrapping a guard string in {} causes it be executed as Ruby code which will always returns true instead of a shell command that will actually run.
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/ResourceSetsInternalProperties:
+  Description: Do not set properties used internally by Chef Infra Client to track the system state.
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/ResourceSetsNameProperty:
+  Description: Resource sets the name property in the resource instead of using a name_property.
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/ResourceWithNoneAction:
+  Description: Resource uses the nonexistent :none action instead of the :nothing action
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/IncludingOhaiDefaultRecipe:
+  Description: Use the ohai_plugin resource to ship custom Ohai plugins instead of using the ohai::default recipe. If you're not shipping custom Ohai plugins, then you can remove this recipe entirely.
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefCorrectness/UnnecessaryNameProperty:
+  Description: There is no need to define a property named :name in a resource as Chef Infra defines that property for all resources out of the box.
+  Enabled: true
+  VersionAdded: '5.8.0'
+  Include:
+    - '**/resources/*.rb'
+    - '**/libraries/*.rb'
+
+ChefCorrectness/EmptyMetadataField:
+  Description: metadata.rb should not include fields with an empty string. Either don't include the field or add a value.
+  Enabled: true
+  VersionAdded: '5.8.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefCorrectness/InvalidVersionMetadata:
+  Description: Cookbook metadata.rb version field should follow X.Y.Z version format.
+  Enabled: true
+  VersionAdded: '5.8.0'
+  Include:
+    - '**/metadata.rb'
+
+###############################
+# ChefDeprecations: Resolving Deprecations that block upgrading Chef Infra Client
+###############################
+
+ChefDeprecations/NodeSet:
+  Description: Do not use the deprecated node.set method
+  Enabled: true
+  VersionAdded: '5.0.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/NodeSetUnless:
+  Description: Do not use the deprecated node.set_unless method
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/EpicFail:
+  Description: Use ignore_failure method instead of the deprecated epic_fail method
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/CookbookDependsOnPoise:
+  Description: Cookbooks should not depend on the deprecated Poise framework
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/ConflictsMetadata:
+  Description: Don't use the deprecated 'conflicts' metadata value
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/SuggestsMetadata:
+  Description: Don't use the deprecated 'suggests' metadata value
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/ProvidesMetadata:
+  Description: Don't use the deprecated 'provides' metadata value
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/ReplacesMetadata:
+  Description: Don't use the deprecated 'replaces' metadata value
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/AttributeMetadata:
+  Description: Don't use the deprecated 'attribute' metadata value
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/LongDescriptionMetadata:
+  Description: The long_description metadata.rb method is not used and is unnecessary in cookbooks
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/RecipeMetadata:
+  Description: The recipe metadata.rb method is not used and is unnecessary in cookbooks. Recipes should be documented in the README.md file instead.
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/CookbookDependsOnCompatResource:
+  Description: Don't depend on the deprecated compat_resource cookbook made obsolete by Chef 12.19+
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/CookbookDependsOnPartialSearch:
+  Description: Don't depend on the deprecated partial_search cookbook made obsolete by Chef 13+
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefDeprecations/EasyInstallResource:
+  Description: Don't use the deprecated easy_install resource resource removed in Chef 13
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/ErlCallResource:
+  Description: Don't use the deprecated erl_call resource removed in Chef 13
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/RequireRecipe:
+  Description: Use include_recipe instead of the require_recipe method
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/NodeMethodsInsteadofAttributes:
+  Description: Use node attributes to access Ohai data instead of node methods, which were deprecated in Chef Infra Client 13.
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/UsesDeprecatedMixins:
+  Description: Don't use deprecated Mixins no longer included in Chef Infra Client 14 and later.
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Include:
+    - '**/libraries/*.rb'
+    - '**/providers/*.rb'
+    - '**/resources/*.rb'
+
+ChefDeprecations/IncludingXMLRubyRecipe:
+  Description: The xml::ruby recipe installs nokogiri which is included in Chef Infra Client 12 and later.
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/LegacyYumCookbookRecipes:
+  Description: The elrepo, epel, ius, remi, and repoforge recipes were split into their own cookbooks and the yum recipe was renamed to be default with the release of yum cookbook 3.0 (Dec 2013).
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/UsesChefRESTHelpers:
+  Description: Don't use the helpers in Chef::REST which were removed in Chef Infra Client 13
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/ChocolateyPackageUninstallAction:
+  Description: Use the :remove action in the chocolatey_package resource instead of :uninstall which was removed in Chef Infra Client 14+
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/LaunchdDeprecatedHashProperty:
+  Description: The launchd resource's hash property was renamed to plist_hash in Chef Infra Client 13+ to avoid conflicts with Ruby's hash class.
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/LocaleDeprecatedLcAllProperty:
+  Description: The local resource's lc_all property has been deprecated and will be removed in Chef Infra Client 16
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/UserDeprecatedSupportsProperty:
+  Description: The supports property was removed in Chef Infra Client 13 in favor of individual 'manage_home' and 'non_unique' properties.
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/UseInlineResourcesDefined:
+  Description: use_inline_resources is now the default for resources in Chef Infra Client 13+ and does not need to be specified.
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Include:
+    - '**/libraries/*.rb'
+    - '**/providers/*.rb'
+    - '**/resources/*.rb'
+
+ChefDeprecations/IncludingYumDNFCompatRecipe:
+  Description: Do not include the yum::dnf_yum_compat default recipe to install yum on dnf systems. Chef Infra Client now includes built in support for DNF.
+  Enabled: true
+  VersionAdded: '5.3.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/WindowsTaskChangeAction:
+  Description: The :change action in the windows_task resource was removed when windows_task was added to Chef Infra Client 13+. The default action of :create should can now be used to create an update tasks.
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefDeprecations/ResourceOverridesProvidesMethod:
+  Description: Don't override the provides? method in a resource provider. Use provides :SOME_PROVIDER_NAME instead. This will cause failures in Chef Infra Client 13 and later.
+  Enabled: true
+  VersionAdded: '5.7.0'
+  Include:
+    - '**/libraries/*.rb'
+    - '**/providers/*.rb'
+    - '**/resources/*.rb'
+
+ChefDeprecations/ResourceUsesDslNameMethod:
+  Description: Use resource_name instead of the dsl_name method in resources. This will cause failures in Chef Infra Client 13 and later.
+  Enabled: true
+  VersionAdded: '5.7.0'
+  Include:
+    - '**/libraries/*.rb'
+    - '**/providers/*.rb'
+    - '**/resources/*.rb'
+
+ChefDeprecations/ResourceUsesUpdatedMethod:
+  Description: Don't use updated = true/false to update resource state. This will cause failures in Chef Infra Client 13 and later.
+  Enabled: false # has a high potential for false positives
+  VersionAdded: '5.7.0'
+  Include:
+    - '**/libraries/*.rb'
+    - '**/providers/*.rb'
+    - '**/resources/*.rb'
+
+ChefDeprecations/NamePropertyWithDefaultValue:
+  Description: A resource property can't be marked as a name_property and also have a default value. This will fail in Chef Infra Client 13 or later.
+  Enabled: true
+  VersionAdded: '5.7.0'
+  Include:
+    - '**/libraries/*.rb'
+    - '**/providers/*.rb'
+    - '**/resources/*.rb'
+
+ChefDeprecations/ResourceUsesProviderBaseMethod:
+  Description: Don't use the deprecated provider_base method in a resource to specify the provider module to use. Instead, the provider should call provides to register itself, or the resource should call provider to specify the provider to use. This will cause failures in Chef Infra Client 13 and later.
+  Enabled: true
+  VersionAdded: '5.7.0'
+  Include:
+    - '**/libraries/*.rb'
+    - '**/resources/*.rb'
+
+ChefDeprecations/ChefSpecCoverageReport:
+  Description: Don't use the deprecated ChefSpec coverage report functionality in your specs.
+  Enabled: true
+  VersionAdded: '5.8.0'
+  Include:
+    - '**/spec/*.rb'
+
+ChefDeprecations/ChefSpecLegacyRunner:
+  Description: Use ChefSpec::SoloRunner or ChefSpec::ServerRunner instead of the deprecated ChefSpec::Runner.
+  Enabled: true
+  VersionAdded: '5.8.0'
+  Include:
+    - '**/spec/*.rb'
+
+ChefDeprecations/UsesRunCommandHelper:
+  Description: Use 'shell_out!' instead of the legacy 'run_command' helper for shelling out. The run_command helper was removed in Chef Infra Client 13.
+  Enabled: true
+  VersionAdded: '5.9.0'
+  Exclude:
+    - '**/metadata.rb'
+    - 'Rakefile'
+
+ChefDeprecations/ChefHandlerUsesSupports:
+  Description: Use the type property instead of the deprecated supports property in the chef_handler resource. The supports property was removed in chef_handler cookbook version 3.0 (June 2017) and Chef Infra Client 14.0.
+  Enabled: true
+  VersionAdded: '5.9.0'
+  Exclude:
+    - '**/metadata.rb'
+
+###############################
+# ChefModernize: Cleaning up legacy code and using new built-in resources
+###############################
+
+ChefModernize/LegacyBerksfileSource:
+  Description: Do not use legacy Berksfile community sources. Use Chef Supermarket instead.
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/Berksfile'
+
+ChefModernize/WhyRunSupportedTrue:
+  Description: whyrun_supported? no longer needs to be set to true as it is the default in Chef 13+
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/resources/*.rb'
+    - '**/providers/*.rb'
+    - '**/libraries/*.rb'
+
+ChefModernize/UnnecessaryDependsChef14:
+  Description: Don't depend on cookbooks made obsolete by Chef Infra Client 14+. These community cookbooks contain resources that are now included in Chef Infra Client itself.
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefModernize/RespondToInMetadata:
+  Description: It is no longer necessary to use respond_to? in metadata.rb in Chef 12.15 and later
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefModernize/RespondToResourceName:
+  Description: respond_to?(:resource_name) in resources is no longer necessary in Chef Infra Client 12.5+
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/resources/*.rb'
+    - '**/libraries/*.rb'
+
+ChefModernize/RespondToProvides:
+  Description: respond_to?(:provides) in resources is no longer necessary in Chef Infra Client 12+
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/providers/*.rb'
+    - '**/libraries/*.rb'
+
+ChefModernize/SetOrReturnInResources:
+  Description: Do not use set_or_return within a method to define a property for a resource. Use the property method instead, which supports validation, reporting, and documentation functionality.
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/resources/*.rb'
+    - '**/libraries/*.rb'
+
+ChefModernize/CustomResourceWithAttributes:
+  Description: Custom Resources should contain properties not attributes.
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/resources/*.rb'
+
+ChefModernize/CustomResourceWithAllowedActions:
+  Description: Custom Resources don't need to define the allowed actions with allowed_actions or actions methods
+  Enabled: true
+  VersionAdded: '5.2.0'
+  Include:
+    - '**/resources/*.rb'
+
+ChefModernize/IncludingAptDefaultRecipe:
+  Description: Do not include the Apt default recipe to update package cache. Instead use the apt_update resource, which is built into Chef Infra Client 12.7 and later.
+  Enabled: true
+  VersionAdded: '5.3.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/IncludingWindowsDefaultRecipe:
+  Description: Do not include the Windows default recipe, which only installs win32 gems already included in Chef Infra Client
+  Enabled: true
+  VersionAdded: '5.3.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/DefinesChefSpecMatchers:
+  Description: ChefSpec matchers are now auto generated by ChefSpec 7.1+ and do not need to be defined in a cookbook
+  Enabled: true
+  VersionAdded: '5.3.0'
+  Include:
+    - '**/libraries/*.rb'
+
+ChefModernize/ExecuteAptUpdate:
+  Description: Use the apt_update resource instead of the execute resource to run an apt-get update package cache update
+  Enabled: true
+  VersionAdded: '5.3.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/WindowsVersionHelper:
+  Description: Use node['platform_version'] data instead of the Windows::VersionHelper helper from the Windows cookbook.
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/MinitestHandlerUsage:
+  Description: Use Chef InSpec for testing instead of the Minitest Handler cookbook pattern.
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Include:
+    - '**/metadata.rb'
+
+ChefModernize/IncludingMixinShelloutInResources:
+  Description: There is no need to include Chef::Mixin::ShellOut in resources or providers as this is already done by Chef Infra Client.
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Include:
+    - '**/resources/*.rb'
+    - '**/providers/*.rb'
+
+ChefModernize/UseBuildEssentialResource:
+  Description: Use the build_essential resource instead of the legacy build-essential recipe. This resource ships in the build-essential cookbook v5.0+ and is built into Chef Infra Client 14+
+  Enabled: true
+  VersionAdded: '5.1.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/WindowsZipfileUsage:
+  Description: Use the archive_file resource built into Chef Infra Client 15+ instead of the windows_zipfile from the Windows cookbook
+  Enabled: true
+  VersionAdded: '5.4.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/SevenZipArchiveResource:
+  Description: Use the archive_file resource built into Chef Infra Client 15+ instead of the seven_zip_archive
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/LibarchiveFileResource:
+  Description: Use the archive_file resource built into Chef Infra Client 15+ instead of the libarchive file resource
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/PowershellScriptExpandArchive:
+  Description: Use the archive_file resource built into Chef Infra Client 15+ instead of using Expand-Archive in a powershell_script resource
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/PowershellInstallPackage:
+  Description: Use the package resource built into Chef Infra Client instead of using Install-Package in a powershell_script resource
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/PowershellInstallWindowsFeature:
+  Description: Use the windows_feature resource built into Chef Infra Client 13+ instead of using Install-WindowsFeature or Add-WindowsFeature in a powershell_script resource
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/ShellOutToChocolatey:
+  Description: Use the Chocolatey resources built into Chef Infra Client instead of shelling out to the choco command
+  Enabled: true
+  VersionAdded: '5.5.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/CronManageResource:
+  Description: The cron_manage resource was renamed to cron_access in the 6.1 release of the cron cookbook and later shipped in Chef Infra Client 14.4. The new resource name should be used.
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/UsesZypperRepo:
+  Description: The zypper_repo resource was renamed zypper_repository when it was added to Chef Infra Client 13.3.
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/DependsOnZypperCookbook:
+  Description: Don't include the zypper cookbook as the zypper_repository resource is built into Chef Infra Client 13.3+
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/ExecuteTzUtil:
+  Description: Use the timezone resource included in Chef Infra Client 14.6+ instead of shelling out to tzutil
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/OpensslRsaKeyResource:
+  Description: The openssl_rsa_key resource was renamed to openssl_rsa_private_key in Chef Infra Client 14.0. The new resource name should be used.
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/OpensslX509Resource:
+  Description: The openssl_x509 resource was renamed to openssl_x509_certificate in Chef Infra Client 14.4. The new resource name should be used.
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/OsxConfigProfileResource:
+  Description: The osx_config_profile resource was renamed to osx_profile. The new resource name should be used.
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/SysctlParamResource:
+  Description: The sysctl_param resource was renamed to sysctl when it was added to Chef Infra Client 14.0. The new resource name should be used.
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/MacOsXUserdefaults:
+  Description: The mac_os_x_userdefaults resource was renamed to macos_userdefaults when it was added to Chef Infra Client 14.0. The new resource name should be used.
+  Enabled: true
+  VersionAdded: '5.6.0'
+  Exclude:
+    - '**/metadata.rb'
+
+ChefModernize/PowerShellGuardInterpreter:
+  Description: PowerShell is already set as the default guard interpreter for powershell_script resources in Chef Infra Client 13 and later and does not need to be specified.
+  Enabled: true
+  VersionAdded: '5.9.0'
+  Exclude:
+    - '**/metadata.rb'
+
+###############################
+# Migrating to new patterns
+###############################
+
+ChefEffortless/CookbookUsesSearch:
+  Description: Cookbook uses search, which cannot be used in the Effortless Infra pattern
+  Enabled: false
+  VersionAdded: '5.1.0'
+
+ChefEffortless/CookbookUsesDatabags:
+  Description: Cookbook uses data bags, which cannot be used in the Effortless Infra pattern
+  Enabled: false
+  VersionAdded: '5.1.0'
+
+#### The base rubocop 0.37 enabled.yml file we started with ####
+
+Layout/AccessModifierIndentation:
+  Enabled: true
+Naming/AccessorMethodName:
+  Enabled: true
+Layout/AlignArray:
+  Enabled: true
+Layout/AlignHash:
+  Enabled: true
+Style/AndOr:
+  Enabled: true
+Style/ArrayJoin:
+  Enabled: true
+Naming/AsciiIdentifiers:
+  Enabled: true
+Style/Attr:
+  Enabled: true
+Style/BeginBlock:
+  Enabled: true
+Style/BarePercentLiterals:
+  Enabled: true
+Style/BlockComments:
+  Enabled: true
+Layout/BlockEndNewline:
+  Enabled: true
+Style/BlockDelimiters:
+  Enabled: true
+Style/BracesAroundHashParameters:
+  Enabled: true
+Style/CaseEquality:
+  Enabled: true
+Layout/CaseIndentation:
+  Enabled: true
+Style/CharacterLiteral:
+  Enabled: true
+Naming/ClassAndModuleCamelCase:
+  Enabled: true
+Style/ClassCheck:
+  Enabled: true
+Style/ClassMethods:
+  Enabled: true
+Style/ClassVars:
+  Enabled: true
+Layout/ClosingParenthesisIndentation:
+  Enabled: true
+Style/ColonMethodCall:
+  Enabled: true
+Style/CommandLiteral:
+  Enabled: true
+Style/CommentAnnotation:
+  Enabled: true
+Layout/CommentIndentation:
+  Enabled: true
+Style/ConditionalAssignment:
+  Enabled: true
+Naming/ConstantName:
+  Enabled: true
+Style/DefWithParentheses:
+  Enabled: true
+Style/DeprecatedHashMethods:
+  Enabled: true
+Layout/DotPosition:
+  Enabled: true
+Style/EachWithObject:
+  Enabled: true
+Layout/ElseAlignment:
+  Enabled: true
+Style/EmptyElse:
+  Enabled: true
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
+Layout/EmptyLines:
+  Enabled: true
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: true
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: true
+Layout/EmptyLinesAroundClassBody:
+  Enabled: true
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: true
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: true
+Style/EmptyLiteral:
+  Enabled: true
+Style/EndBlock:
+  Enabled: true
+Style/EvenOdd:
+  Enabled: true
+Layout/ExtraSpacing:
+  Enabled: true
+Layout/InitialIndentation:
+  Enabled: true
+Layout/FirstParameterIndentation:
+  Enabled: true
+Lint/FlipFlop:
+  Enabled: true
+Style/For:
+  Enabled: true
+Style/FormatString:
+  Enabled: true
+Style/GlobalVars:
+  Enabled: true
+Style/HashSyntax:
+  Enabled: true
+Style/IfInsideElse:
+  Enabled: true
+Style/IfWithSemicolon:
+  Enabled: true
+Layout/IndentationConsistency:
+  Enabled: true
+Layout/IndentationWidth:
+  Enabled: true
+Style/IdenticalConditionalBranches:
+  Enabled: true
+Layout/IndentArray:
+  Enabled: true
+Layout/IndentAssignment:
+  Enabled: true
+Layout/IndentHash:
+  Enabled: true
+Style/InfiniteLoop:
+  Enabled: true
+Style/Lambda:
+  Enabled: true
+Style/LambdaCall:
+  Enabled: true
+Layout/LeadingCommentSpace:
+  Enabled: true
+Style/LineEndConcatenation:
+  Enabled: true
+Style/MethodCallParentheses:
+  Enabled: true
+Style/MethodDefParentheses:
+  Enabled: true
+Naming/MethodName:
+  Enabled: true
+Style/ModuleFunction:
+  Enabled: true
+Style/MultilineBlockChain:
+  Enabled: true
+Layout/MultilineBlockLayout:
+  Enabled: true
+Style/MultilineIfThen:
+  Enabled: true
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+Layout/MultilineOperationIndentation:
+  Enabled: true
+Style/MultilineTernaryOperator:
+  Enabled: true
+Style/MutableConstant:
+  Enabled: true
+Style/NegatedIf:
+  Enabled: true
+Style/NegatedWhile:
+  Enabled: true
+Style/NestedModifier:
+  Enabled: true
+Style/NestedParenthesizedCalls:
+  Enabled: true
+Style/NestedTernaryOperator:
+  Enabled: true
+Style/Next:
+  Enabled: true
+Style/NilComparison:
+  Enabled: true
+Style/NonNilCheck:
+  Enabled: true
+Style/Not:
+  Enabled: true
+Style/OneLineConditional:
+  Enabled: true
+Naming/OpMethod:
+  Enabled: true
+Style/OptionalArguments:
+  Enabled: true
+Style/ParallelAssignment:
+  Enabled: true
+Style/ParenthesesAroundCondition:
+  Enabled: true
+Style/PercentQLiterals:
+  Enabled: true
+Style/PerlBackrefs:
+  Enabled: true
+Naming/PredicateName:
+  Enabled: true
+Style/Proc:
+  Enabled: true
+Style/RaiseArgs:
+  Enabled: true
+Style/RedundantBegin:
+  Enabled: true
+Style/RedundantException:
+  Enabled: true
+Style/RedundantFreeze:
+  Enabled: true
+Style/RedundantParentheses:
+  Enabled: true
+Style/RedundantReturn:
+  Enabled: true
+Style/RedundantSelf:
+  Enabled: true
+Style/RegexpLiteral:
+  Enabled: true
+Layout/RescueEnsureAlignment:
+  Enabled: true
+Style/RescueModifier:
+  Enabled: true
+Style/SelfAssignment:
+  Enabled: true
+Style/Semicolon:
+  Enabled: true
+Style/SignalException:
+  Enabled: true
+Style/SingleLineBlockParams:
+  Enabled: true
+Style/SingleLineMethods:
+  Enabled: true
+Layout/SpaceAfterColon:
+  Enabled: true
+Layout/SpaceAfterComma:
+  Enabled: true
+Layout/SpaceAfterMethodName:
+  Enabled: true
+Layout/SpaceAfterNot:
+  Enabled: true
+Layout/SpaceAfterSemicolon:
+  Enabled: true
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+Layout/SpaceBeforeComma:
+  Enabled: true
+Layout/SpaceBeforeComment:
+  Enabled: true
+Layout/SpaceBeforeSemicolon:
+  Enabled: true
+Layout/SpaceInsideBlockBraces:
+  Enabled: true
+Layout/SpaceAroundBlockParameters:
+  Enabled: true
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
+Layout/SpaceAroundKeyword:
+  Enabled: true
+Layout/SpaceAroundOperators:
+  Enabled: true
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+Layout/SpaceInsideParens:
+  Enabled: true
+Layout/SpaceInsideRangeLiteral:
+  Enabled: true
+Layout/SpaceInsideStringInterpolation:
+  Enabled: true
+Style/SpecialGlobalVars:
+  Enabled: true
+Style/StabbyLambdaParentheses:
+  Enabled: true
+Style/StringLiterals:
+  Enabled: true
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+Style/StructInheritance:
+  Enabled: true
+Style/SymbolLiteral:
+  Enabled: true
+Layout/Tab:
+  Enabled: true
+Layout/TrailingBlankLines:
+  Enabled: true
+Style/TrailingCommaInArguments:
+  Enabled: true
+Layout/TrailingWhitespace:
+  Enabled: true
+Style/TrivialAccessors:
+  Enabled: true
+Style/UnlessElse:
+  Enabled: true
+Style/UnneededCapitalW:
+  Enabled: true
+Style/UnneededInterpolation:
+  Enabled: true
+Style/UnneededPercentQ:
+  Enabled: true
+Style/TrailingUnderscoreVariable:
+  Enabled: true
+Style/VariableInterpolation:
+  Enabled: true
+Naming/VariableName:
+  Enabled: true
+Style/WhenThen:
+  Enabled: true
+Style/WhileUntilDo:
+  Enabled: true
+Style/WhileUntilModifier:
+  Enabled: true
+Style/WordArray:
+  Enabled: true
+Style/ZeroLengthPredicate:
+  Enabled: true
+Metrics/BlockNesting:
+  Enabled: true
+Metrics/ParameterLists:
+  Enabled: true
+Lint/AmbiguousOperator:
+  Enabled: true
+Lint/AssignmentInCondition:
+  Enabled: true
+Layout/BlockAlignment:
+  Enabled: true
+Lint/CircularArgumentReference:
+  Enabled: true
+Layout/ConditionPosition:
+  Enabled: true
+Lint/Debugger:
+  Enabled: true
+Layout/DefEndAlignment:
+  Enabled: true
+Lint/DeprecatedClassMethods:
+  Enabled: true
+Lint/DuplicateMethods:
+  Enabled: true
+Lint/DuplicatedKey:
+  Enabled: true
+Lint/EachWithObjectArgument:
+  Enabled: true
+Lint/ElseLayout:
+  Enabled: true
+Lint/EmptyEnsure:
+  Enabled: true
+Lint/EmptyInterpolation:
+  Enabled: true
+Layout/EndAlignment:
+  Enabled: true
+Lint/EndInMethod:
+  Enabled: true
+Lint/EnsureReturn:
+  Enabled: true
+Security/Eval:
+  Enabled: true
+Lint/FloatOutOfRange:
+  Enabled: true
+Lint/FormatParameterMismatch:
+  Enabled: true
+Lint/HandleExceptions:
+  Enabled: true
+Lint/ImplicitStringConcatenation:
+  Enabled: true
+Lint/IneffectiveAccessModifier:
+  Enabled: true
+Lint/LiteralAsCondition:
+  Enabled: true
+Lint/LiteralInInterpolation:
+  Enabled: true
+Lint/Loop:
+  Enabled: true
+Lint/NestedMethodDefinition:
+  Enabled: true
+Lint/NextWithoutAccumulator:
+  Enabled: true
+Lint/NonLocalExitFromIterator:
+  Enabled: true
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: true
+Lint/RandOne:
+  Enabled: true
+Lint/RequireParentheses:
+  Enabled: true
+Lint/RescueException:
+  Enabled: true
+Lint/ShadowingOuterLocalVariable:
+  Enabled: true
+Lint/StringConversionInInterpolation:
+  Enabled: true
+Lint/UnderscorePrefixedVariableName:
+  Enabled: true
+Lint/UnneededCopDisableDirective:
+  Enabled: true
+Lint/UnusedBlockArgument:
+  Enabled: true
+Lint/UnusedMethodArgument:
+  Enabled: true
+Lint/UnreachableCode:
+  Enabled: true
+Lint/UselessAccessModifier:
+  Enabled: true
+Lint/UselessAssignment:
+  Enabled: true
+Lint/UselessComparison:
+  Enabled: true
+Lint/UselessElseWithoutRescue:
+  Enabled: true
+Lint/UselessSetterCall:
+  Enabled: true
+Lint/Void:
+  Enabled: true
+
+##### Additional rules we enable/disable over the rubocop 0.37 rules ago #####
+
+Layout/AlignParameters:
+  Enabled: false
+Style/Encoding:
+  Enabled: false
+Style/Alias:
+  Enabled: false
+Layout/SpaceBeforeFirstArg:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/DoubleNegation:
+  Enabled: false
+
+# file names don't matter in cookbooks
+Naming/FileName:
+  Enabled: false
+
+# disable all the length cops as they're not appropriate for cookbooks
+Metrics/LineLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# https://github.com/chef/cookstyle/pull/5
+Style/TrailingCommaInHashLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+
+# https://github.com/chef/cookstyle/pull/5
+Style/TrailingCommaInArrayLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+
+# Underscores in numbers are unnecessary, especially for port numbers where they are unexpected
+Style/NumericLiterals:
+  Enabled: false
+
+# This often triggers no matter what you do with inspec/serverspec matchers
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+# some names are not ascii and this prevents copyright comments
+Style/AsciiComments:
+  Enabled: false
+
+# avoid case statements where the 2nd 'when' would never fire
+Lint/DuplicateCaseCondition:
+  Enabled: true
+
+# empty expressions serve no purpose
+Lint/EmptyExpression:
+  Enabled: true
+
+# when in a case statement should always do something
+Lint/EmptyWhen:
+  Enabled: true
+
+# %w('something') is almost always a typo
+Lint/PercentStringArray:
+  Enabled: true
+
+# %w(:something) should be a string not a symbol
+Lint/PercentSymbolArray:
+  Enabled: true
+
+# if you rescue Exception, then rescue say StandardError you're gonna have a bad time
+Lint/ShadowedException:
+  Enabled: true
+
+# We're on modern ruby so let's assume Integer everywhere
+Lint/UnifiedInteger:
+  Enabled: true
+
+# consistent hash key/value checks
+Style/PreferredHashMethods:
+  Enabled: true
+
+# when iterating a fixed number of times this is much easier to read
+Style/EachForSimpleLoop:
+  Enabled: true
+
+# a case statement without a condition is just an if statement
+Style/EmptyCaseCondition:
+  Enabled: true
+
+# == 0 is more performant than .zero? and .zero? also introduced several regressions
+Style/NumericPredicate:
+  Enabled: true
+  EnforcedStyle: comparison
+
+# this is bad %w(something     another_thing   one_more)
+Layout/SpaceInsideArrayPercentLiteral:
+  Enabled: true
+
+# There's no reason to have a gem listed twice
+Bundler/DuplicatedGem:
+  Enabled: true
+
+# This results in very confusing code to read with little perf benefit
+Performance/Casecmp:
+  Enabled: false
+
+# This comes with changing the ruby target to 2.3+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# maintain the previous array behavior in previous cookstyle releases
+Style/PercentLiteralDelimiters:
+  Enabled: true
+  PreferredDelimiters:
+    '%':  ()
+    '%i': ()
+    '%I': ()
+    '%q': ()
+    '%Q': ()
+    '%r': '{}'
+    '%s': ()
+    '%w': ()
+    '%W': ()
+    '%x': ()
+
+# backwards conditions are hard to read
+Style/YodaCondition:
+  Enabled: true
+
+Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: true
+
+# enforce lf to avoid failures on Windows systems
+Layout/EndOfLine:
+  Enabled: true
+  EnforcedStyle: lf
+
+# guardclause sacrifices ease of readability for consistency at times
+Style/GuardClause:
+  Enabled: false
+
+# Users really shouldn't have a gem, but if they do they should do it securely
+Bundler/InsecureProtocolSource:
+  Enabled: true
+
+# It's easier to read a simple .each and they're faster
+Lint/RedundantWithIndex:
+  Enabled: true
+
+# Catches when a user single quotes a string with interpolation
+Lint/InterpolationCheck:
+  Enabled: true
+
+# Bad: `bar = [foo.min, foo.max]`. Good: bar = foo.minmax
+Style/MinMax:
+  Enabled: true
+
+# Avoid ruby deprecation warnings
+Lint/UriRegexp:
+  Enabled: true
+
+Performance/UriDefaultParser:
+  Enabled: true
+
+# :true or :false seems like a horrible idea
+Lint/BooleanSymbol:
+  Enabled: true
+
+# this avoids very verbose code for no reason
+Style/RedundantConditional:
+  Enabled: true
+
+# catches people writing a regex check wrong
+Lint/RegexpInCondition:
+  Enabled: true
+
+# Avoids pointless / complex code
+Lint/RedundantWithObject:
+  Enabled: true
+
+# avoid requiring things that come for free
+Lint/UnneededRequireStatement:
+  Enabled: true
+
+# Avoid poorly formatted methods
+Style/TrailingBodyOnMethodDefinition:
+  Enabled: true
+
+# Avoid weird empty lines in an argument
+Layout/EmptyLinesAroundArguments:
+  Enabled: true
+
+# don't shadow arguments
+Lint/ShadowedArgument:
+  Enabled: true
+
+# find orphaned empty comments
+Layout/EmptyComment:
+  Enabled: true
+
+# warn on deprecated functionality
+Lint/BigDecimalNew:
+  Enabled: true
+
+# remove bogus rubocop comments. We already enabled Disable directives
+Lint/UnneededCopEnableDirective:
+  Enabled: true
+
+# get people on a much simpler ruby 2.4 way of doing things
+Style/UnpackFirst:
+  Enabled: true
+
+Style/SymbolProc:
+  Enabled: true
+  # A list of method names to be ignored by the check.
+  # The names should be fairly unique, otherwise you'll end up ignoring lots of code.
+  IgnoredMethods:
+    - lazy
+
+# as much as I wish everyone would document things it's just not going to happen
+Style/Documentation:
+  Enabled: false
+
+# compact code is nice, but this is actually harder to read for new users
+Style/IfUnlessModifier:
+  Enabled: false
+
+# in general cookbooks shouldn't include a gemfile, but if they do they can do with it as they wish
+Bundler/OrderedGems:
+  Enabled: false

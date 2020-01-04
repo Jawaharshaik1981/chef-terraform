@@ -1,0 +1,50 @@
+chefdk 4.5.0
+
+Component                Installed Version   Version GUID                                                                                                                                              Overridden From   
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+autoconf                 2.68                md5:c3b5247592ce694f7097873aa07d66fe                                                                                                                      
+automake                 1.11.2              md5:79ad64a9f6e83ea98d6964cef8d8a0bc                                                                                                                      
+bundler                  4.5.0               
+bzip2                    1.0.8               sha256:ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269                                                                                   
+cacerts                  2019-05-15          sha256:cb2eca3fbfa232c9e3874e3852d43b33589f27face98eef10242a853d83a437a                                                                                   
+chef-dk                  local_source        path:/var/lib/buildkite-agent/builds/buildkite-omnibus-rhel-7-x86-64-i-0b30cb79e20d1841f-1/chef/chef-chef-dk-master-omnibus-release/omnibus/files/../..   
+chef-dk-gem-versions     4.5.0               
+config_guess             master              git:84f04b02a7e2fc8eaa9d52deee5f6d57b06fe447                                                                                                              
+curl                     7.65.1              sha256:821aeb78421375f70e55381c9ad2474bf279fc454b791b7e95fc83562951c690                                                                                   
+delivery-cli             master              git:4b21ec7e07fdfa82e86aa80e4f2372dde8e368bb                                                                                                              
+expat                    2.1.0               md5:dd7dab7a5fea97d2a6a43f511449b7cd                                                                                                                      
+gem-permissions          0.0.1               
+git-custom-bindir        2.23.0              sha256:e3396c90888111a01bf607346db09b0fbf49a95bc83faf9506b61195936f0cfe                                                                                   
+google-protobuf          v3.5.2              git:b5fbb742af122b565925987e65c08957739976a7                                                                                                              
+libarchive               3.4.0               sha256:8643d50ed40c759f5412a3af4e353cffbce4fdf3b5cf321cb72cacf06b2d825e                                                                                   
+libedit                  20120601-3.0        md5:e50f6a7afb4de00c81650f7b1a0f5aea                                                                                                                      
+libffi                   3.2.1               md5:83b89587607e3eb65c70d361f13bab43                                                                                                                      
+libiconv                 1.15                sha256:ccf536620a45458d26ba83887a983b96827001e92a13847b45e4925cc8913178                                                                                   
+liblzma                  5.2.4               sha256:b512f3b726d3b37b6dc4c8570e137b9311e7552e8ccbab4d39d47ce5f4177145                                                                                   
+libsodium                1.0.17              sha256:0cc3dae33e642cc187b5ceb467e0ad0e1b51dcba577de1190e9ffa17766ac2b1                                                                                   
+libtool                  2.4.2               md5:d2f3b7d4627e69e13514a40e72a24d50                                                                                                                      2.4               
+libxml2                  2.9.9               sha256:94fb70890143e3c6549f265cee93ec064c80a84c42ad0f23e85ee1fd6540a871                                                                                   
+libxslt                  1.1.30              sha256:ba65236116de8326d83378b2bd929879fa185195bc530b9d1aba72107910b6b3                                                                                   
+libyaml                  0.1.7               sha256:8088e457264a98ba451a90b8661fcb4f9d6f478f7265d48322a196cec2480729                                                                                   
+libzmq                   4.0.7               sha256:e00b2967e074990d0538361cc79084a0a92892df2c6e7585da34e4c61ee47b03                                                                                   2.1.11            
+m4                       1.4.18              sha256:ab2633921a5cd38e48797bf5521ad259bdc4b979078034a3b790d7fec5493fab                                                                                   
+makedepend               1.0.5               md5:efb2d7c7e22840947863efaedc175747                                                                                                                      
+ncurses                  5.9                 md5:8cb9c412e5f2d96bc6f459aa8c6282a1                                                                                                                      
+openssl                  1.0.2s              sha256:cabd5c9492825ce5bd23f3c3aeed6a97f8142f606d893df216411f07d1abab96                                                                                   1.0.2t            
+openssl-customization    4.5.0               
+openssl-fips             2.0.16              sha256:a3cd13d0521d22dd939063d3b4a0d4ce24494374b91408a05bdaca8b681c63d4                                                                                   
+pcre                     8.38                md5:8a353fe1450216b6655dfcf3561716d9                                                                                                                      
+pkg-config-lite          0.28-1              md5:61f05feb6bab0a6bbfab4b6e3b2f44b6                                                                                                                      
+preparation              1.0.0               
+ruby                     2.6.5               sha256:66976b716ecc1fd34f9b7c3c2b07bbd37631815377a2e3e85a5b194cfdcbed7d                                                                                   
+ruby-cleanup             4.5.0               
+rubygems                 4.5.0               
+rubygems-customization   4.5.0               
+rust                     1.37.0              sha256:cb573229bfd32928177c3835fdeb62d52da64806b844bc1095c6225b0665a1cb                                                                                   
+rust-uninstall           0.0.1               
+shebang-cleanup          0.0.2               
+stunnel                  5.39                sha256:288c087a50465390d05508068ac76c8418a21fae7275febcc63f041ec5b04dee                                                                                   
+util-macros              1.19.0              md5:40e1caa49a71a26e0aa68ddd00203717                                                                                                                      1.18.0            
+version-manifest         0.0.1               
+xproto                   7.0.28              md5:0b42843b99aee3e4f6a9cc7710143f86                                                                                                                      7.0.25            
+zlib                     1.2.11              sha256:c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1                                                                                   

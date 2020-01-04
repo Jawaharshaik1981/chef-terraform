@@ -1,0 +1,16 @@
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+/opt/chefdk/embedded/bin/ruby -I /opt/chefdk/embedded/lib/ruby/2.6.0 -r ./siteconf20191016-11988-10nhq6n.rb extconf.rb
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR=" clean
+make: *** No rule to make target 'clean'.  Stop.
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR="
+echo "Nada."
+Nada.
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR=" install
+echo "Nada."
+Nada.

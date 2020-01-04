@@ -1,0 +1,399 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "metadata": {
+                "description": "The location where the resources will be created."
+            }
+        },
+        "vmSize": {
+            "type": "string",
+            "metadata": {
+                "description": "The size of the VM to be created"
+            }
+        },
+        "newStorageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Unique DNS Name for the Storage Account where the Virtual Machine's disks will be placed."
+            }
+        },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "User name for the Virtual Machine."
+            }
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Password for the Virtual Machine."
+            }
+        },
+        "dnsNameForPublicIP": {
+            "type": "string",
+            "metadata": {
+                "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
+            }
+        },
+        <%- unless os_disk_size_gb.to_s.empty?  -%>
+        "osDiskSizeGb": {
+            "type": "int",
+            "minValue": 1,
+            "maxValue": 1023,
+            "metadata": {
+                "description": "Size of the OS disks in GB."
+            }
+        },
+        <%- end -%>
+        <%- unless custom_data.empty? -%>
+        "customData": {
+            "type": "string",
+            "metadata": {
+                "description": "Custom Data for the instance (e.g. cloud-init or script) - not compatible with winrm."
+            }
+        },
+        <%- end -%>
+        <%- if !existing_storage_account_blob_url.empty? -%>
+        "existingStorageAccountBlobURL": {
+            "type": "string",
+            "metadata": {
+                "description": "The URL of the existing storage account (blob) (without container)"
+            }
+        },
+        <%- end -%>
+        <%- if !existing_storage_account_container.empty? -%>
+        "existingStorageAccountBlobContainer": {
+            "type": "string",
+            "metadata": {
+                "description": "The Container Name for OS Images (blob)"
+            }
+        },
+        <%- end -%>
+        <%- if !image_url.empty? -%>
+        "imageUrl": {
+            "type": "string",
+            "metadata": {
+                "description": "An URL for a private Image (vhd)"
+            }
+        },
+        "osType": {
+            "type": "string",
+            "metadata": {
+                "description": "An OS Type (linux, windows)"
+            }
+        },
+        <%- elsif !image_id.empty? -%>
+        "imageId": {
+            "type": "string",
+            "metadata": {
+                "description": "The id of a managed image"
+            }
+        },
+        <%- else -%>
+        "imagePublisher": {
+            "type": "string",
+            "defaultValue": "Canonical",
+            "metadata": {
+                "description": "Publisher for the VM, e.g. Canonical, MicrosoftWindowsServer"
+            }
+        },
+        "imageOffer": {
+            "type": "string",
+            "defaultValue": "UbuntuServer",
+            "metadata": {
+                "description": "Offer for the VM, e.g. UbuntuServer, WindowsServer."
+            }
+        },
+        "imageSku": {
+            "type": "string",
+            "defaultValue": "14.04.3-LTS",
+            "metadata": {
+                "description": "Sku for the VM, e.g. 14.04.3-LTS"
+            }
+        },
+        "imageVersion": {
+            "type": "string",
+            "defaultValue": "latest",
+            "metadata": {
+                "description": "Either a date or latest."
+            }
+        },
+        <%- end -%>
+        "osDiskNameSuffix": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "A disk Name Suffix to make the disk name unique in existing storage accounts."
+            }
+        },
+        "vmName": {
+            "type": "string",
+            "defaultValue": "vm",
+            "metadata": {
+                "description": "The vm name created inside of the resource group."
+            }
+        },
+        "storageAccountType": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "metadata": {
+                "description": "The type of storage to use (e.g. Standard_LRS or Premium_LRS)."
+            }
+        },
+        "systemAssignedIdentity": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Whether to enable system assigned identity for the vm."
+            }
+        },
+        "userAssignedIdentities": {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "A list of resource IDs for user identities to associate with the Virtual Machine, or empty to disable user assigned identities."
+            }
+        },
+        "bootDiagnosticsEnabled": {
+            "type": "string",
+            "defaultValue": "true",
+            "metadata": {
+                "description": "Whether to enable (true) or disable (false) boot diagnostics. Default: false."
+            }
+        }
+    },
+    "variables": {
+        "location": "[parameters('location')]",
+        "OSDiskName": "osdisk",
+        "nicName": "nic",
+        "addressPrefix": "10.0.0.0/16",
+        "subnetName": "Subnet",
+        "subnetPrefix": "10.0.0.0/24",
+        "storageAccountType": "[parameters('storageAccountType')]",
+        "publicIPAddressName": "publicip",
+        "publicIPAddressType": "Dynamic",
+        "vmStorageAccountContainerName": "vhds",
+        "vmName": "[parameters('vmName')]",
+        "vmSize": "[parameters('vmSize')]",
+        "vmIdentityType": "[if(parameters('systemAssignedIdentity'), if(empty(parameters('userAssignedIdentities')), 'SystemAssigned', 'SystemAssigned, UserAssigned'), if(empty(parameters('userAssignedIdentities')), 'None', 'UserAssigned'))]",
+        "virtualNetworkName": "vnet",
+        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+        "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "pid-18d63047-6cdf-4f34-beed-62f01fc73fc2", 
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": []
+                }
+            }
+        },
+        <%- unless use_managed_disks -%>
+        <%- if existing_storage_account_blob_url.empty? -%>
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[parameters('newStorageAccountName')]",
+            "apiVersion": "2015-05-01-preview",
+            "location": "[variables('location')]",
+            "properties": {
+                "accountType": "[variables('storageAccountType')]"
+            },
+            "tags": {
+                <%= vm_tags unless vm_tags.empty? %>
+            }
+        },
+        <%- end -%>
+        <%- end -%>
+        {
+            "apiVersion": "2015-05-01-preview",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[variables('publicIPAddressName')]",
+            "location": "[variables('location')]",
+            "properties": {
+                "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('dnsNameForPublicIP')]"
+                }
+            },
+            "tags": {
+                <%= vm_tags unless vm_tags.empty? %>
+            }
+        },
+        {
+            "apiVersion": "2015-05-01-preview",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[variables('virtualNetworkName')]",
+            "location": "[variables('location')]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[variables('addressPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('subnetName')]",
+                        "properties": {
+                            "addressPrefix": "[variables('subnetPrefix')]"
+                        }
+                    }
+                ]
+            },
+            "tags": {
+                <%= vm_tags unless vm_tags.empty? %>
+            }
+        },
+        {
+            "apiVersion": "2015-05-01-preview",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('nicName')]",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
+                "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+                            },
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            }
+                        }
+                    }
+                ]
+            },
+            "tags": {
+                <%= vm_tags unless vm_tags.empty? %>
+            }
+        },
+        {
+            "apiVersion": "2018-06-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[variables('vmName')]",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                <%- unless use_managed_disks -%>
+                <%- if existing_storage_account_blob_url.empty? -%>
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('newStorageAccountName'))]",
+                <%- end -%>
+                <%- end -%>
+                "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[variables('vmSize')]"
+                },
+                "osProfile": {
+                    "computername": "[variables('vmName')]",
+                    <%- unless custom_data.empty? -%>
+                    "customData": "[parameters('customData')]",
+                    <%- end -%>
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]"
+                },
+                "storageProfile": {
+                    <%- if image_url.empty? and image_id.empty? -%>
+                    "imageReference": {
+                        "publisher": "[parameters('imagePublisher')]",
+                        "offer": "[parameters('imageOffer')]",
+                        "sku": "[parameters('imageSku')]",
+                        "version": "[parameters('imageVersion')]"
+                    },
+                    <%- elsif !image_id.empty? -%>
+                    "imageReference": {
+                        "id": "[parameters('imageId')]"
+                    },
+                    <%- end -%>
+                    <%- if use_ephemeral_osdisk -%>
+                    "osDisk": { 
+                        "diffDiskSettings": { 
+                             "option": "Local" 
+                        }, 
+                        "caching": "ReadOnly", 
+                        "createOption": "FromImage" 
+                    }
+                    <%- elsif use_managed_disks -%>
+                    "osDisk": {
+                        "name": "osdisk",
+                        <%- unless os_disk_size_gb.to_s.empty? -%>
+                        "diskSizeGB": "[parameters('osDiskSizeGB')]",
+                        <%- end -%>
+                        "createOption": "FromImage"
+                    }
+                    <%- else -%>
+                    "osDisk": {
+                        "name": "osdisk",
+                        <%- if !image_url.empty? -%>
+                        <%- unless os_disk_size_gb.to_s.empty? -%>
+                        "diskSizeGB": "[parameters('osDiskSizeGB')]",
+                        <%- end -%>
+                        "image": {
+                            "uri": "[parameters('imageUrl')]"
+                        },
+                        "osType": "[parameters('osType')]",
+                        <%- end -%>
+                        "vhd": {
+                            <%- if existing_storage_account_blob_url.empty? -%>
+                            "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', parameters('newStorageAccountName')), '2015-06-15').primaryEndpoints.blob, variables('vmStorageAccountContainerName'), '/',variables('OSDiskName'),parameters('osDiskNameSuffix'),'.vhd')]"
+                            <%- else -%>
+                            <%- if existing_storage_account_container.empty? -%>
+                            "uri": "[concat(parameters('existingStorageAccountBlobURL'), '/', variables('vmStorageAccountContainerName'), '/', variables('OSDiskName'),parameters('osDiskNameSuffix'),'.vhd')]"
+                            <%- else -%>
+                            "uri": "[concat(parameters('existingStorageAccountBlobURL'), '/', parameters('existingStorageAccountBlobContainer'), '/', variables('OSDiskName'),parameters('osDiskNameSuffix'),'.vhd')]"
+                            <%- end -%>
+                            <%- end -%>
+                        },
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    }
+                    <%- end -%>
+                    <%- unless data_disks_for_vm_json.nil? -%>
+                      ,"dataDisks": 
+                          <%= data_disks_for_vm_json %>
+                    <%- end -%>
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    <%- unless use_managed_disks -%>
+                    "bootDiagnostics": {
+                        "enabled": "[parameters('bootDiagnosticsEnabled')]",
+                        <%- if existing_storage_account_blob_url.empty? -%>
+                        "storageUri": "[reference(concat('Microsoft.Storage/storageAccounts/', parameters('newStorageAccountName')), '2015-06-15').primaryEndpoints.blob]"
+                        <%- else -%>
+                        "storageUri": "[parameters('existingStorageAccountBlobURL')]"
+                        <%- end -%>
+                    }
+                    <%- end -%>
+                }
+            },
+            "identity": {
+                "type": "[variables('vmIdentityType')]",
+                "identityIds": "[if(empty(parameters('userAssignedIdentities')), json('null'), parameters('userAssignedIdentities'))]"
+            },
+            "tags": {
+                <%= vm_tags unless vm_tags.empty? %>
+            }
+        }
+    ]
+}

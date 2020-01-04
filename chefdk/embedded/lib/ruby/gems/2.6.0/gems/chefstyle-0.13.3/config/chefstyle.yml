@@ -1,0 +1,624 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+#
+# Bundler
+#
+
+Bundler/DuplicatedGem:
+  Enabled: false
+
+#
+# Lint
+#
+
+Lint/AmbiguousOperator:
+  Enabled: true
+Lint/AmbiguousBlockAssociation:
+  Enabled: true
+Lint/AmbiguousRegexpLiteral:
+  Enabled: true
+Lint/AssignmentInCondition:
+  Enabled: true
+Layout/BlockAlignment:
+  EnforcedStyleAlignWith: start_of_block
+  Enabled: true
+Lint/CircularArgumentReference:
+  Enabled: true
+Layout/ConditionPosition:
+  Enabled: true
+Lint/Debugger:
+  Enabled: true
+Layout/DefEndAlignment:
+  Enabled: true
+Lint/DeprecatedClassMethods:
+  Enabled: true
+Lint/DuplicateCaseCondition:
+  Enabled: true
+Lint/DuplicateMethods:
+  Enabled: true
+Lint/DuplicatedKey:
+  Enabled: true
+Lint/EachWithObjectArgument:
+  Enabled: true
+Lint/ElseLayout:
+  Enabled: true
+Lint/EmptyEnsure:
+  Enabled: true
+Lint/EmptyExpression:
+  Enabled: true
+Lint/EmptyInterpolation:
+  Enabled: true
+Lint/EmptyWhen:
+  Enabled: true
+Layout/EndAlignment:
+  Enabled: true
+Lint/EndInMethod:
+  Enabled: true
+Lint/EnsureReturn:
+  Enabled: true
+Lint/FloatOutOfRange:
+  Enabled: true
+Lint/FormatParameterMismatch:
+  Enabled: true
+Lint/ImplicitStringConcatenation:
+  Enabled: true
+Lint/InheritException:
+  Enabled: true
+Lint/IneffectiveAccessModifier:
+  Enabled: true
+Lint/LiteralAsCondition:
+  Enabled: true
+Lint/LiteralInInterpolation:
+  Enabled: true
+Lint/Loop:
+  Enabled: true
+Lint/MultipleCompare:
+  Enabled: true
+Lint/NestedMethodDefinition:
+  Enabled: true
+Lint/NextWithoutAccumulator:
+  Enabled: true
+Lint/NonLocalExitFromIterator:
+  Enabled: true
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: true
+Lint/PercentStringArray:
+  Enabled: true
+Lint/PercentSymbolArray:
+  Enabled: true
+Lint/RandOne:
+  Enabled: true
+Lint/RequireParentheses:
+  Enabled: true
+Lint/SafeNavigationChain:
+  Enabled: true
+Lint/ShadowedException:
+  Enabled: true
+Lint/ShadowingOuterLocalVariable:
+  Enabled: true
+Lint/StringConversionInInterpolation:
+  Enabled: true
+Lint/UnderscorePrefixedVariableName:
+  Enabled: true
+Lint/UnifiedInteger:
+  Enabled: true
+Lint/UnneededSplatExpansion:
+  Enabled: true
+Lint/UnreachableCode:
+  Enabled: true
+Lint/UselessAccessModifier:
+  Enabled: true
+Lint/UselessAssignment:
+  Enabled: true
+Lint/UselessComparison:
+  Enabled: true
+Lint/UselessElseWithoutRescue:
+  Enabled: true
+Lint/UselessSetterCall:
+  Enabled: true
+Lint/Void:
+  Enabled: true
+
+#
+# Disabled Lint
+#
+
+# These are disabled per https://github.com/chef/chef/pull/3038
+Lint/UnusedBlockArgument:
+  Enabled: false
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+# We ignore Exceptions a lot
+Lint/HandleExceptions:
+  Enabled: false
+# We also decorate Exceptions a lot
+Lint/RescueException:
+  Enabled: false
+
+# disabling this will make it easier to stage chefstyle rollouts
+Lint/UnneededCopDisableDirective:
+  Enabled: false
+
+#
+# Security
+#
+
+Security/Eval:
+  Enabled: true
+
+#
+# Metrics
+#
+
+# Metrics cops are all disabled, there would be too much refactoring
+# work to do and we have much higher priorities.
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockNesting:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/ParameterLists:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+
+#
+# Style/Naming/Layout
+#
+
+Layout/AccessModifierIndentation:
+  Enabled: true
+Layout/AlignArguments:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+Layout/AlignParameters:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+# the "ignore_implict" is here for keyword args in method calls which are
+# "implicit" hashes, and those should not be treated like normal hashes
+Layout/AlignHash:
+  Enabled: true
+  EnforcedLastArgumentHashStyle: ignore_implicit
+Style/AndOr:
+  Enabled: true
+Style/ArrayJoin:
+  Enabled: true
+Naming/AsciiIdentifiers:
+  Enabled: true
+Style/Attr:
+  Enabled: true
+Style/BeginBlock:
+  Enabled: true
+# there's debate over one-liner vs semantic blockstyle, chef projects should just pick one style
+# and stick with it.
+Style/BlockDelimiters:
+  Enabled: false
+Layout/BlockEndNewline:
+  Enabled: true
+Style/CharacterLiteral:
+  Enabled: true
+Style/ClassCheck:
+  Enabled: true
+Style/ClassMethods:
+  Enabled: true
+Layout/ClosingHeredocIndentation:
+  Enabled: true
+Layout/ClosingParenthesisIndentation:
+  Enabled: true
+Style/ColonMethodCall:
+  Enabled: true
+Style/CommandLiteral:
+  Enabled: true
+Naming/ConstantName:
+  Enabled: true
+Style/DefWithParentheses:
+  Enabled: true
+Layout/DotPosition:
+  Enabled: True
+Style/EachForSimpleLoop:
+  Enabled: true
+Layout/ElseAlignment:
+  Enabled: true
+Layout/EmptyLineAfterGuardClause:
+  Enabled: true
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
+Layout/EmptyLines:
+  Enabled: true
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: true
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: true
+Style/EmptyLiteral:
+  Enabled: true
+Style/EmptyMethod:
+  Enabled: true
+Style/EndBlock:
+  Enabled: true
+Layout/EndOfLine:
+  Enabled: true
+  EnforcedStyle: lf
+Style/EvenOdd:
+  Enabled: true
+Layout/ExtraSpacing:
+  Enabled: true
+Lint/FlipFlop:
+  Enabled: true
+Style/For:
+  Enabled: true
+Style/HashSyntax:
+  Enabled: true
+Naming/HeredocDelimiterCase:
+  Enabled: true
+Style/IfUnlessModifierOfIfUnless:
+  Enabled: true
+Style/IfWithSemicolon:
+  Enabled: true
+Layout/IndentAssignment:
+  Enabled: true
+Layout/IndentFirstArgument:
+  EnforcedStyle: consistent
+  Enabled: true
+Layout/IndentHeredoc:
+  Enabled: true
+Layout/IndentationConsistency:
+  Enabled: true
+Layout/IndentationWidth:
+  Enabled: true
+Style/InfiniteLoop:
+  Enabled: true
+Layout/InitialIndentation:
+  Enabled: true
+Style/LambdaCall:
+  Enabled: true
+Layout/LeadingCommentSpace:
+  Enabled: true
+Style/MethodDefParentheses:
+  Enabled: true
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: true
+Layout/MultilineBlockLayout:
+  Enabled: true
+Style/MultilineIfModifier:
+  Enabled: true
+Style/MultilineIfThen:
+  Enabled: true
+Style/MultilineMemoization:
+  Enabled: true
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: true
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+Layout/MultilineMethodDefinitionBraceLayout:
+  Enabled: true
+Layout/MultilineOperationIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+Style/MultilineTernaryOperator:
+  Enabled: true
+Style/MutableConstant:
+  Enabled: true
+Style/NegatedIf:
+  Enabled: true
+Style/NegatedWhile:
+  Enabled: true
+Style/NegatedUnless:
+  Enabled: true
+Style/NestedModifier:
+  Enabled: true
+Style/NestedTernaryOperator:
+  Enabled: true
+Style/NilComparison:
+  Enabled: true
+Style/NonNilCheck:
+  Enabled: true
+# `foo.zero?` is slower and substantially more annoying to read than `foo == 0`
+Style/NumericPredicate:
+  Enabled: true
+  EnforcedStyle: comparison
+Style/OneLineConditional:
+  Enabled: true
+Naming/BinaryOperatorParameterName:
+  Enabled: true
+Style/OptionalArguments:
+  Enabled: true
+Style/ParenthesesAroundCondition:
+  Enabled: true
+# - The chef source code predominantly uses {} for %,%i,%q,%Q,%r,%w,%W
+# - The old 1.9 pickaxe book predominantly uses {} for %,%q,%Q,%r,%w,%W,%x
+# - The chef source code does not use %x enough to determine a preference
+# - The old 1.9 pickaxe book does not use %i
+# - %s is not used in chef code or the pickaxe book, and is %s{} for consistency
+Style/PercentLiteralDelimiters:
+  Enabled: true
+  PreferredDelimiters:
+    '%':  '{}'
+    '%i': '{}'
+    '%I': '{}'
+    '%q': '{}'
+    '%Q': '{}'
+    '%r': '{}'
+    '%s': '{}'
+    '%w': '{}'
+    '%W': '{}'
+    '%x': '{}'
+Style/PercentQLiterals:
+  Enabled: true
+Style/PreferredHashMethods:
+  Enabled: true
+Style/RedundantBegin:
+  Enabled: true
+Style/RedundantException:
+  Enabled: true
+Style/RedundantFreeze:
+  Enabled: true
+Style/RedundantReturn:
+  Enabled: true
+Style/RedundantSelf:
+  Enabled: true
+Layout/RescueEnsureAlignment:
+  Enabled: true
+Style/RegexpLiteral:
+  Enabled: true
+# temporarily disabled, but we should do this
+Style/SafeNavigation:
+  Enabled: false
+Style/SelfAssignment:
+  Enabled: true
+Style/Semicolon:
+  AllowAsExpressionSeparator: true
+  Enabled: true
+# we only 'raise' and do not 'fail'
+Style/SignalException:
+  EnforcedStyle: only_raise
+  Enabled: true
+Layout/SpaceAfterColon:
+  Enabled: true
+Layout/SpaceAfterComma:
+  Enabled: true
+Layout/SpaceAfterMethodName:
+  Enabled: true
+Layout/SpaceAfterSemicolon:
+  Enabled: true
+Layout/SpaceAroundBlockParameters:
+  Enabled: true
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
+Layout/SpaceAroundOperators:
+  Enabled: true
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+Layout/SpaceBeforeComment:
+  Enabled: true
+Layout/SpaceBeforeSemicolon:
+  Enabled: true
+Layout/SpaceAroundKeyword:
+  Enabled: true
+Layout/SpaceInLambdaLiteral:
+  Enabled: true
+Layout/SpaceInsideArrayPercentLiteral:
+  Enabled: true
+Layout/SpaceInsideBlockBraces:
+  Enabled: true
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+Layout/SpaceInsideRangeLiteral:
+  Enabled: true
+Layout/SpaceInsideStringInterpolation:
+  Enabled: true
+Style/StabbyLambdaParentheses:
+  Enabled: true
+# core chef community prefers double quotes over single quotes
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  Enabled: true
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+  Enabled: true
+Style/StructInheritance:
+  Enabled: true
+Style/SymbolLiteral:
+  Enabled: true
+Style/StringMethods:
+  Enabled: true
+Style/SymbolArray:
+  Enabled: true
+Style/SymbolProc:
+  Enabled: true
+Layout/Tab:
+  Enabled: true
+Layout/TrailingBlankLines:
+  Enabled: true
+Style/TrailingCommaInArguments:
+  Enabled: true
+# rubocop's default gets this completely backwards
+Style/TrailingCommaInArrayLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+Style/TrailingUnderscoreVariable:
+  Enabled: true
+Layout/TrailingWhitespace:
+  Enabled: true
+Style/UnneededCapitalW:
+  Enabled: true
+Style/UnneededInterpolation:
+  Enabled: false # buggy: https://github.com/rubocop-hq/rubocop/issues/6099
+#Style/UnneededPercentQ:  # would like to enable this one but its buggy as of 0.35.1
+#  Enabled: true
+Naming/VariableName:
+  Enabled: true
+Style/VariableInterpolation:
+  Enabled: true
+Style/WhenThen:
+  Enabled: true
+Style/WhileUntilDo:
+  Enabled: true
+Style/WhileUntilModifier:
+  Enabled: true
+Style/WordArray:
+  Enabled: true
+
+#
+# Disabled Style
+#
+
+# FIXME: we need to enable this
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# As of this commit we have 686 modules and classes without docs.
+# This is a cop that we /should/ have enabled, but tactically we can't really enable.
+Style/Documentation:
+  Enabled: false
+Style/DocumentationMethod:
+  Enabled: false
+
+# this makes whitespace formatting of DSL code impossible
+Layout/SpaceBeforeFirstArg:
+  Enabled: false
+
+# whitespace in expressions is useful to enhance readability
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+Layout/SpaceInsideReferenceBrackets:
+  Enabled: false
+Layout/SpaceInsideParens:
+  Enabled: false
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: false
+
+# more whitespace cops that we allow since they can enhance readability
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# double negation is perfectly idiomatic ruby
+Style/DoubleNegation:
+  Enabled: false
+# format strings are also perfectly idiomatic ruby
+Style/FormatString:
+  Enabled: false
+# single line if/unless blocks may read more naturally than modifiers
+Style/IfUnlessModifier:
+  Enabled: false
+
+# we are ruby > 2.0 only so can disable the Encoding cop
+Style/Encoding:
+  Enabled: false
+
+# Dan is -1 on this one: https://github.com/chef/chef/pull/4526#issuecomment-179950045
+Layout/IndentFirstHashElement:
+  Enabled: false
+
+# This is overly aggressive and autofix broke stuff, would need to exclude classes
+#  - https://github.com/chef/chef/pull/4541
+Style/TrivialAccessors:
+  Enabled: false
+
+# Not a lot of offenses and this seems to catch code that looks otherwise fine to my eye
+Style/MultilineBlockChain:
+  Enabled: false
+
+# We see nothing at all wrong with a trailing `rescue nil`
+Style/RescueModifier:
+  Enabled: false
+
+# Resulted in a bit of a bikeshed over names with unicode chars vs silently hidden unicode chars in comments
+Style/AsciiComments:
+  Enabled: false
+
+# Parens around ternaries often make them more readable and reduces cognitive load over operator precidence
+Style/TernaryParentheses:
+  Enabled: false
+
+# Underscores in numbers are super ugly for port numbers, freebsd versions, etc.
+# If we could mandate that this gets turned on only for numbers >= 1e9 which require three _'s then maybe.
+Style/NumericLiterals:
+  Enabled: false
+
+# I tend to find this more readable than long elsif chains
+Style/EmptyCaseCondition:
+  Enabled: false
+
+# This didn't quite do what we need
+Layout/MultilineArrayBraceLayout:
+  Enabled: false
+
+# This rule isn't smart enough to figure out accessors vs. things that set stuff on the system (e.g. set_member method in group providers)
+Naming/AccessorMethodName:
+  Enabled: false
+
+# Perl backrefs are just fine and the alternative is a lot of typing.
+Style/PerlBackrefs:
+  Enabled: false
+
+# This has an annoying auto-fix which fails to `require "english"` and then fails silently
+Style/SpecialGlobalVars:
+  Enabled: false
+
+# This cop is horrible and I hate the code it produces (even though I tend to like GuardClauses in lots of cases)
+Style/GuardClause:
+  Enabled: false
+
+Style/RedundantSortBy:
+  Enabled: true
+
+Style/Sample:
+  Enabled: true
+
+# Let authors order gems however makes sense
+Bundler/OrderedGems:
+  Enabled: false
+
+# Naming cops produce fairly pointless makework (e.g. EOF on HEREDOC's is
+# perfectly fine and understandable, using 'ip' as a parameter to a function
+# is also perfectly descriptive even though its only 2 characters...).
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+Naming/PredicateName:
+  Enabled: false
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+Naming/VariableNumber:
+  Enabled: false
+
+# This breaks all kinds of specs in chef (i don't think it will ever quite work correctly)
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+# We almost never use format strings but this cop triggers on any string with "%{whatever}" in it and is 99% false positives
+Style/FormatStringToken:
+  Enabled: false
+
+# This cop is annoying.  The rubocop default of course goes against the most popular community guidelines due to contrariness
+# and then the autocorrect mangles specs in chef/chef.  Burned more time than it was worth looking at this one so its off.
+Style/Alias:
+  Enabled: false
+
+# No autofix for this one, and I don't care to fix 138 instances of it in the chef/chef codebase.  Don't think its worth wasting
+# anyone else's time either.
+Style/CommentedKeyword:
+  Enabled: false

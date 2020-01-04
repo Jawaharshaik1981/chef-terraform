@@ -1,0 +1,18 @@
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/jaro_winkler-1.5.3/ext/jaro_winkler
+/opt/chef/embedded/bin/ruby -I /opt/chef/embedded/lib/ruby/2.6.0 -r ./siteconf20191015-14921-sxmlm2.rb extconf.rb
+creating Makefile
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/jaro_winkler-1.5.3/ext/jaro_winkler
+make "DESTDIR=" clean
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/jaro_winkler-1.5.3/ext/jaro_winkler
+make "DESTDIR="
+compiling adj_matrix.c
+compiling codepoints.c
+compiling jaro.c
+compiling jaro_winkler.c
+linking shared-object jaro_winkler/jaro_winkler_ext.so
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/jaro_winkler-1.5.3/ext/jaro_winkler
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 jaro_winkler_ext.so ./.gem.20191015-14921-1d0mk7v/jaro_winkler

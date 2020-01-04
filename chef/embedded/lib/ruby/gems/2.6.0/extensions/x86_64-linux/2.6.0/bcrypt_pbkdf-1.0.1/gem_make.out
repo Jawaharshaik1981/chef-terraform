@@ -1,0 +1,19 @@
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/bcrypt_pbkdf-1.0.1/ext/mri
+/opt/chef/embedded/bin/ruby -I /opt/chef/embedded/lib/ruby/2.6.0 -r ./siteconf20191015-13214-1sz6lxa.rb extconf.rb
+creating Makefile
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/bcrypt_pbkdf-1.0.1/ext/mri
+make "DESTDIR=" clean
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/bcrypt_pbkdf-1.0.1/ext/mri
+make "DESTDIR="
+compiling bcrypt_pbkdf.c
+compiling bcrypt_pbkdf_ext.c
+compiling blowfish.c
+compiling explicit_bzero.c
+compiling hash_sha512.c
+linking shared-object bcrypt_pbkdf_ext.so
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/bcrypt_pbkdf-1.0.1/ext/mri
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bcrypt_pbkdf_ext.so ./.gem.20191015-13214-zf1rfw

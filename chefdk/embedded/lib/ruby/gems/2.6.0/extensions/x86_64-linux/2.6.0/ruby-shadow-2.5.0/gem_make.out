@@ -1,0 +1,24 @@
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/ruby-shadow-2.5.0
+/opt/chefdk/embedded/bin/ruby -I /opt/chefdk/embedded/lib/ruby/2.6.0 -r ./siteconf20191016-11988-1l3jqtl.rb extconf.rb
+checking for getspent() in -lshadow... no
+checking for getspent()... yes
+checking for fgetspent()... yes
+checking for setspent()... yes
+checking for endspent()... yes
+checking for lckpwdf()... yes
+checking for ulckpwdf()... yes
+checking for sgetspent()... yes
+checking for ruby/io.h... yes
+creating Makefile
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/ruby-shadow-2.5.0
+make "DESTDIR=" clean
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/ruby-shadow-2.5.0
+make "DESTDIR="
+compiling shadow/shadow.c
+linking shared-object shadow.so
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/ruby-shadow-2.5.0
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 shadow.so ./.gem.20191016-11988-1pyapcl

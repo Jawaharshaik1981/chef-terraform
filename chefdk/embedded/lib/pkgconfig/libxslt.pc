@@ -1,0 +1,12 @@
+prefix=/opt/chefdk/embedded
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+
+Name: libxslt
+Version: 1.1.30
+Description: XSLT library version 2.
+Requires: libxml-2.0
+Libs: -L${libdir} -lxslt -L/opt/chefdk/embedded/lib -L/opt/chefdk/embedded/lib -lxml2 -L/opt/chefdk/embedded/lib -lz -L/opt/chefdk/embedded/lib -llzma -lm -ldl -lm 
+Cflags: -I${includedir}

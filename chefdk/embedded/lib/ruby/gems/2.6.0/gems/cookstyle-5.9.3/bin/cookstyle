@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+# -*- encoding: utf-8 -*-
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), %w(.. lib))
+
+require 'cookstyle'
+
+# force the fail level to :convention so that we can set all our new rules to
+# the lowest level of :refactor without failing everyone's CI jobs
+unless ARGV.include?('--fail-level')
+  ARGV << '--fail-level'
+  ARGV << 'C'
+end
+
+# if only -v is passed we'll get 3 args (-v, --fail-level, and C)
+if ARGV.size == 3 && %w(-v --version).include?(ARGV.first)
+  puts "Cookstyle #{Cookstyle::VERSION}"
+  print '  * RuboCop '
+end
+
+load Gem.bin_path('rubocop', 'rubocop')

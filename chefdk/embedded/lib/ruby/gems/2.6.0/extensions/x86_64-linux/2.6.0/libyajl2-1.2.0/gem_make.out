@@ -1,0 +1,19 @@
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/libyajl2-1.2.0/ext/libyajl2
+/opt/chefdk/embedded/bin/ruby -I /opt/chefdk/embedded/lib/ruby/2.6.0 -r ./siteconf20191016-11988-15cqjni.rb extconf.rb
+creating Makefile
+/opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/libyajl2-1.2.0/ext/libyajl2
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/libyajl2-1.2.0/ext/libyajl2
+make "DESTDIR=" clean
+make: *** No rule to make target 'clean'.  Stop.
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/libyajl2-1.2.0/ext/libyajl2
+make "DESTDIR="
+make: Nothing to be done for 'all'.
+
+current directory: /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/libyajl2-1.2.0/ext/libyajl2
+make "DESTDIR=" install
+mkdir -p /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/libyajl2-1.2.0/lib/libyajl2/vendored-libyajl2/lib
+cp libyajl.so /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/libyajl2-1.2.0/lib/libyajl2/vendored-libyajl2/lib/libyajl.so
+mkdir -p /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/libyajl2-1.2.0/lib/libyajl2/vendored-libyajl2/include/yajl
+cp yajl/*.h /opt/chefdk/embedded/lib/ruby/gems/2.6.0/gems/libyajl2-1.2.0/lib/libyajl2/vendored-libyajl2/include/yajl

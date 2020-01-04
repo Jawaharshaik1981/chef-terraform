@@ -1,0 +1,70 @@
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/nokogiri-1.10.4/ext/nokogiri
+/opt/chef/embedded/bin/ruby -I /opt/chef/embedded/lib/ruby/2.6.0 -r ./siteconf20191015-13846-rp7mx1.rb extconf.rb --use-system-libraries --with-xml2-lib\=/opt/chef/embedded/lib --with-xml2-include\=/opt/chef/embedded/include/libxml2 --with-xslt-lib\=/opt/chef/embedded/lib --with-xslt-include\=/opt/chef/embedded/include/libxslt --without-iconv --with-zlib-dir\=/opt/chef/embedded
+checking if the C compiler accepts -I/opt/chef/embedded/include -O2... yes
+Building nokogiri using system libraries.
+checking for xmlParseDoc() in libxml/parser.h... yes
+checking for xsltParseStylesheetDoc() in libxslt/xslt.h... yes
+checking for exsltFuncRegister() in libexslt/exslt.h... yes
+checking for xmlHasFeature()... yes
+checking for xmlFirstElementChild()... yes
+checking for xmlRelaxNGSetParserStructuredErrors()... yes
+checking for xmlRelaxNGSetParserStructuredErrors()... yes
+checking for xmlRelaxNGSetValidStructuredErrors()... yes
+checking for xmlSchemaSetValidStructuredErrors()... yes
+checking for xmlSchemaSetParserStructuredErrors()... yes
+creating Makefile
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/nokogiri-1.10.4/ext/nokogiri
+make "DESTDIR=" clean
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/nokogiri-1.10.4/ext/nokogiri
+make "DESTDIR="
+compiling html_document.c
+compiling html_element_description.c
+compiling html_entity_lookup.c
+compiling html_sax_parser_context.c
+compiling html_sax_push_parser.c
+compiling nokogiri.c
+compiling xml_attr.c
+compiling xml_attribute_decl.c
+compiling xml_cdata.c
+compiling xml_comment.c
+compiling xml_document.c
+compiling xml_document_fragment.c
+compiling xml_dtd.c
+compiling xml_element_content.c
+compiling xml_element_decl.c
+compiling xml_encoding_handler.c
+compiling xml_entity_decl.c
+compiling xml_entity_reference.c
+compiling xml_io.c
+compiling xml_libxml2_hacks.c
+compiling xml_namespace.c
+compiling xml_node.c
+xml_node.c: In function ‘reparent_node_with’:
+xml_node.c:304:7: warning: passing argument 1 of ‘xmlFree’ discards ‘const’ qualifier from pointer target type [enabled by default]
+       xmlFree(reparentee->ns->prefix);
+       ^
+xml_node.c:304:7: note: expected ‘void *’ but argument is of type ‘const xmlChar *’
+compiling xml_node_set.c
+compiling xml_processing_instruction.c
+compiling xml_reader.c
+compiling xml_relax_ng.c
+compiling xml_sax_parser.c
+compiling xml_sax_parser_context.c
+compiling xml_sax_push_parser.c
+compiling xml_schema.c
+compiling xml_syntax_error.c
+compiling xml_text.c
+compiling xml_xpath_context.c
+compiling xslt_stylesheet.c
+xslt_stylesheet.c:112:13: warning: ‘swallow_superfluous_xml_errors’ defined but not used [-Wunused-function]
+ static void swallow_superfluous_xml_errors(void * userdata, xmlErrorPtr error, ...)
+             ^
+linking shared-object nokogiri/nokogiri.so
+Cleaning files only used during build.
+rm -rf /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/nokogiri-1.10.4/ports/archives
+
+current directory: /opt/chef/embedded/lib/ruby/gems/2.6.0/gems/nokogiri-1.10.4/ext/nokogiri
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 nokogiri.so ./.gem.20191015-13846-vbjnrz/nokogiri

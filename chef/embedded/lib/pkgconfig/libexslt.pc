@@ -1,0 +1,12 @@
+prefix=/opt/chef/embedded
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+
+Name: libexslt
+Version: 0.8.18
+Description: EXSLT Extension library
+Requires: libxml-2.0
+Libs: -L${libdir} -lexslt -lxslt -L/opt/chef/embedded/lib -L/opt/chef/embedded/lib -lxml2 -L/opt/chef/embedded/lib -lz -L/opt/chef/embedded/lib -llzma -lm -ldl -lm 
+Cflags: -I${includedir}

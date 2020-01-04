@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+# This script helps to test external gems in the content of the current
+# Chef install. We want to make sure that the external gems will still function
+# once we release Chef so we run *their* specs against the current contents
+# of the chef / ohai repos. It let's us know if we need to update downstream
+# gems or fix regressions in chef *before* we release.
+
+$:.unshift(File.expand_path("../../lib", File.dirname(__FILE__)))
+
+require "tmpdir"
+require "bundler"
+require "chef/mixin/shell_out"
+
+include Chef::Mixin::ShellOut
+
+github_repo = ARGV.shift
+git_thing = ARGV.shift
+
+build_dir = Dir.pwd
+
+env = {
+  "GEMFILE_MOD" => "gem 'chef', path: '#{build_dir}'; " \
+    "gem 'ohai', git: 'https://github.com/chef/ohai.git'",
+  "CHEF_LICENSE" => "accept-no-persist",
+}
+
+Dir.mktmpdir("chef-external-test") do |dir|
+  git_url = "https://github.com/#{github_repo}"
+  Dir.rmdir dir
+  shell_out!("git clone #{git_url} #{dir}", live_stream: STDOUT)
+  Dir.chdir(dir) do
+    shell_out!("git checkout #{git_thing}", live_stream: STDOUT)
+    Bundler.with_clean_env do
+      shell_out!("bundle install", live_stream: STDOUT, env: env)
+      shell_out!("bundle exec #{ARGV.join(" ")}", live_stream: STDOUT, env: env)
+    end
+  end
+end

@@ -1,0 +1,15 @@
+*.sw?
+Gemfile.lock
+Gemfile.local
+pkg/
+tmp/
+coverage/
+.DS_Store
+.bundle
+*~
+vendor
+.idea/*
+
+# yard
+.yardoc
+doc/*
